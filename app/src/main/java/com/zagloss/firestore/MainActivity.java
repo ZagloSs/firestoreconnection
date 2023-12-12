@@ -1,6 +1,8 @@
 package com.zagloss.firestore;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,12 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     EditText email, passw, name;
     Button guardar, borrar, recuperar;
     TextView recuEmail, recuNombre;
+
+    ConstraintLayout main;
+    ArrayList<String> idUsed;
 
     //Instancia de firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -41,6 +52,30 @@ public class MainActivity extends AppCompatActivity {
 
         recuEmail = findViewById(R.id.textViewRecuEmail);
         recuNombre = findViewById(R.id.textViewRecuNombre);
+
+        main = findViewById(R.id.constrainLayoutID);
+
+        idUsed = new ArrayList<String>();
+
+
+        //Guardar todos los id para comprobar si se puede registrar
+        db.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot documents : task.getResult()) {
+                        idUsed.add(documents.getId());
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
+
 
         //Presionar el boton de guardar
         guardar.setOnClickListener(new View.OnClickListener() {
