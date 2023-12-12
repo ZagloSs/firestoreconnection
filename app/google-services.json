@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "227264983085",
+    "project_id": "fayerstore-6c6a0",
+    "storage_bucket": "fayerstore-6c6a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227264983085:android:733577fc2c1f2d9f4c88a4",
+        "android_client_info": {
+          "package_name": "com.zagloss.firestore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBamRESRJaPKMrfhuDszaxCPnKDcQW6WmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
