@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         idUsed = new ArrayList<String>();
 
 
-        //Guardar todos los id para comprobar si se puede registrar
+        //Guardar todos los id
         db.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -69,6 +71,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        //Comprobar si un documento con un id en concreto existe
+        db.collection("Users").document("maik@maikol").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    //Si maik@maikol existe entonces tal
+                    if(doc.exists()){
+                        email.setError("Si");
+                        email.requestFocus();
+
+                    //Si no pues tal
+                    }else{
+                        email.setError("No");
+                        email.requestFocus();
+                    }
+                }
+            }
+        });
+
 
 
 
