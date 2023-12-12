@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Presionar el boton de recuperar
         recuperar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
